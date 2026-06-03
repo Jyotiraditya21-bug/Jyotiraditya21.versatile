@@ -213,7 +213,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- 8. Top Grid Navigation Active Section Syncing ---
     const sections = document.querySelectorAll('section[id]');
-    const navLinks = document.querySelectorAll('.nav__column a');
+    const navLinks = document.querySelectorAll('.nav__links a');
     
     const sectionObserverOptions = {
         root: null,

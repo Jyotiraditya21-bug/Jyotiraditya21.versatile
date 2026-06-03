@@ -231,35 +231,29 @@ em {
     text-transform: lowercase;
 }
 
-.nav__grid {
+.nav__links {
     display: flex;
-    gap: 48px;
+    gap: 32px;
     margin-left: auto;
     margin-right: 48px;
 }
 
 @media (max-width: 768px) {
-    .nav__grid {
-        display: none; /* Hide on mobile to keep it simple, or simplify */
+    .nav__links {
+        display: none; /* Hide on mobile to keep it simple */
     }
 }
 
-.nav__column {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-}
-
-.nav__column a {
-    font-family: 'Outfit', sans-serif;
-    font-size: 13.5px;
+.nav__links a {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 14px;
     font-weight: 500;
     color: var(--text-mute);
     transition: color 0.3s var(--ease-fluid);
     text-transform: lowercase;
 }
 
-.nav__column a:hover {
+.nav__links a:hover {
     color: var(--text);
 }
 
