@@ -1737,3 +1737,100 @@ a.contact__channel:hover .contact__channel-icon {
     border-color: var(--accent);
     color: #ffffff !important;
 }
+
+/* --- 7. Animated Agent Flow Visual --- */
+.agent-flow-visual {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(var(--accent-rgb), 0.02);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 16px 20px;
+    margin: 24px 0 32px 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.flow-node {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    position: relative;
+    z-index: 2;
+    transition: all 0.3s var(--ease-fluid);
+}
+
+.flow-node__icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--bg-2);
+    border: 1px solid var(--line-bright);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    color: var(--text-mute);
+    transition: all 0.4s var(--ease-fluid);
+    box-shadow: 0 0 0 rgba(var(--accent-rgb), 0);
+}
+
+.flow-node__label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.05em;
+    color: var(--text-mute);
+    text-transform: lowercase;
+    transition: color 0.4s var(--ease-fluid);
+}
+
+/* Active node state */
+.flow-node.active .flow-node__icon {
+    border-color: var(--accent);
+    background: rgba(var(--accent-rgb), 0.1);
+    color: var(--text);
+    box-shadow: 0 0 14px rgba(var(--accent-rgb), 0.3);
+    transform: scale(1.05);
+}
+.flow-node.active .flow-node__label {
+    color: var(--accent);
+    font-weight: 500;
+}
+
+/* Flow connector paths */
+.flow-connector {
+    flex-grow: 1;
+    height: 1px;
+    background-color: var(--line);
+    margin: 0 4px;
+    position: relative;
+    z-index: 1;
+    margin-bottom: 16px; /* Offset label spacing align */
+}
+
+.flow-connector__packet {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background-color: var(--accent);
+    box-shadow: 0 0 6px var(--accent);
+    opacity: 0;
+}
+
+.flow-node.active + .flow-connector .flow-connector__packet {
+    opacity: 1;
+    animation: flow-packet 2.5s linear infinite;
+}
+
+@keyframes flow-packet {
+    0% { left: 0%; opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { left: 100%; opacity: 0; }
+}

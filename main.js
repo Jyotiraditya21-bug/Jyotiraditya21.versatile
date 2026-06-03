@@ -517,6 +517,21 @@ document.addEventListener('DOMContentLoaded', () => {
     // Refresh cursor hover listeners since new buttons may have been rendered dynamically
     setTimeout(setupCursorHovers, 500);
 
+    // --- 11. Cycle Active Nodes in Agentic Flow Visual ---
+    const flowNodes = document.querySelectorAll('.flow-node');
+    let activeNodeIndex = 0;
+    
+    function cycleFlowNodes() {
+        if (flowNodes.length === 0) return;
+        flowNodes.forEach((node, idx) => {
+            node.classList.toggle('active', idx === activeNodeIndex);
+        });
+        activeNodeIndex = (activeNodeIndex + 1) % flowNodes.length;
+    }
+    
+    // Cycle every 2.5 seconds
+    setInterval(cycleFlowNodes, 2500);
+
 });
 
 // --- 11. Form Submission Simulation (Secured Cybernetic Beacon Signal) ---
