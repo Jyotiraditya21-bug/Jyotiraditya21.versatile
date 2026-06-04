@@ -4,7 +4,7 @@
 
 // --- EmailJS Credentials Config ---
 // Replace these with your actual keys from emailjs.com
-const EMAILJS_SERVICE_ID = "service_rjlsahk";
+const EMAILJS_SERVICE_ID = "service_liq0auo";
 const EMAILJS_TEMPLATE_ID = "template_bvkby4d";
 const EMAILJS_PUBLIC_KEY = "JNexhLJcaLjAqPBFG";
 
