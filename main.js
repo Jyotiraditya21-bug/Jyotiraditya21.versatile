@@ -2,6 +2,12 @@
    AESTHETIC PORTFOLIO ENGINE - EMERALD CYBERNETIC (main.js)
    ========================================================================== */
 
+// --- EmailJS Credentials Config ---
+// Replace these with your actual keys from emailjs.com
+const EMAILJS_SERVICE_ID = "YOUR_SERVICE_ID";
+const EMAILJS_TEMPLATE_ID = "YOUR_TEMPLATE_ID";
+const EMAILJS_PUBLIC_KEY = "YOUR_PUBLIC_KEY";
+
 document.addEventListener('DOMContentLoaded', () => {
     
     // --- 1. Initialize Lenis Smooth Scroll ---
@@ -534,7 +540,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 });
 
-// --- 11. Form Submission via FormSubmit (Secured Cybernetic Beacon Signal) ---
+// --- 11. Form Submission via EmailJS (Secured Cybernetic Beacon Signal) ---
 function handleFormSubmit() {
     const feedback = document.getElementById('form-feedback');
     const submitBtn = document.getElementById('form-submit-btn');
@@ -543,6 +549,15 @@ function handleFormSubmit() {
     const msgInput = document.getElementById('form-message');
     
     if (!feedback || !submitBtn) return;
+    
+    // Check if EmailJS credentials are configured
+    if (EMAILJS_SERVICE_ID === "YOUR_SERVICE_ID" || EMAILJS_TEMPLATE_ID === "YOUR_TEMPLATE_ID" || EMAILJS_PUBLIC_KEY === "YOUR_PUBLIC_KEY") {
+        feedback.classList.remove('hidden', 'success');
+        feedback.style.color = '#ef4444';
+        feedback.textContent = 'ERROR: EMAILJS CREDENTIALS NOT CONFIGURED IN MAIN.JS.';
+        console.error('Please configure your EmailJS credentials (EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, EMAILJS_PUBLIC_KEY) at the top of main.js');
+        return;
+    }
     
     feedback.classList.remove('hidden', 'success');
     feedback.style.color = ''; // Reset custom color inline overrides
@@ -553,26 +568,29 @@ function handleFormSubmit() {
     setTimeout(() => {
         feedback.textContent = 'CONNECTING COMPUTATION MATRIX...';
         
-        fetch("https://formsubmit.co/ajax/jimmycodes2110@gmail.com", {
+        fetch("https://api.emailjs.com/api/v1.0/email/send", {
             method: "POST",
             headers: { 
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
+                'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                name: nameInput ? nameInput.value : '',
-                email: emailInput ? emailInput.value : '',
-                message: msgInput ? msgInput.value : '',
-                _subject: 'New Portfolio Inquiry!',
-                _captcha: 'false',
-                _template: 'table'
+                service_id: EMAILJS_SERVICE_ID,
+                template_id: EMAILJS_TEMPLATE_ID,
+                user_id: EMAILJS_PUBLIC_KEY,
+                template_params: {
+                    from_name: nameInput ? nameInput.value : '',
+                    reply_to: emailInput ? emailInput.value : '',
+                    message: msgInput ? msgInput.value : ''
+                }
             })
         })
         .then(response => {
             if (response.ok) {
-                return response.json();
+                return response.text();
             }
-            throw new Error('Network response was not ok.');
+            return response.text().then(errText => {
+                throw new Error(errText || 'Network response was not ok.');
+            });
         })
         .then(data => {
             feedback.classList.add('success');
