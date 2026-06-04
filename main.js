@@ -562,7 +562,10 @@ function handleFormSubmit() {
             body: JSON.stringify({
                 name: nameInput ? nameInput.value : '',
                 email: emailInput ? emailInput.value : '',
-                message: msgInput ? msgInput.value : ''
+                message: msgInput ? msgInput.value : '',
+                _subject: 'New Portfolio Inquiry!',
+                _captcha: 'false',
+                _template: 'table'
             })
         })
         .then(response => {

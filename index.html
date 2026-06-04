@@ -470,7 +470,12 @@
                     
                     <!-- Right Side: Contact Form -->
                     <div class="reveal">
-                        <form id="cyber-contact-form" class="contact__form" onsubmit="event.preventDefault(); handleFormSubmit();">
+                        <form id="cyber-contact-form" action="https://formsubmit.co/jimmycodes2110@gmail.com" method="POST" class="contact__form" onsubmit="event.preventDefault(); handleFormSubmit();">
+                            <!-- FormSubmit Settings -->
+                            <input type="hidden" name="_captcha" value="false">
+                            <input type="hidden" name="_subject" value="New Portfolio Inquiry!">
+                            <input type="hidden" name="_template" value="table">
+
                             <div class="contact__field">
                                 <label for="form-name">your_name</label>
                                 <input type="text" id="form-name" name="name" required placeholder="Ex: John Doe">
