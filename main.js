@@ -534,7 +534,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 });
 
-// --- 11. Form Submission Simulation (Secured Cybernetic Beacon Signal) ---
+// --- 11. Form Submission via FormSubmit (Secured Cybernetic Beacon Signal) ---
 function handleFormSubmit() {
     const feedback = document.getElementById('form-feedback');
     const submitBtn = document.getElementById('form-submit-btn');
@@ -545,13 +545,33 @@ function handleFormSubmit() {
     if (!feedback || !submitBtn) return;
     
     feedback.classList.remove('hidden', 'success');
+    feedback.style.color = ''; // Reset custom color inline overrides
     feedback.textContent = 'TRANSMITTING SECURED BEACON SIGNAL...';
     submitBtn.disabled = true;
     
+    // Aesthetic step delay before firing network request
     setTimeout(() => {
         feedback.textContent = 'CONNECTING COMPUTATION MATRIX...';
         
-        setTimeout(() => {
+        fetch("https://formsubmit.co/ajax/jimmycodes2110@gmail.com", {
+            method: "POST",
+            headers: { 
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify({
+                name: nameInput ? nameInput.value : '',
+                email: emailInput ? emailInput.value : '',
+                message: msgInput ? msgInput.value : ''
+            })
+        })
+        .then(response => {
+            if (response.ok) {
+                return response.json();
+            }
+            throw new Error('Network response was not ok.');
+        })
+        .then(data => {
             feedback.classList.add('success');
             feedback.textContent = 'TRANSMISSION SECURED successfully! CYBERNETIC LINK ONLINE.';
             
@@ -563,7 +583,16 @@ function handleFormSubmit() {
                 feedback.classList.add('hidden');
                 submitBtn.disabled = false;
             }, 5000);
+        })
+        .catch(error => {
+            console.error('Submission error:', error);
+            feedback.style.color = '#ef4444'; // Red error alert color
+            feedback.textContent = 'TRANSMISSION FAILED. PLEASE TRY AGAIN OR EMAIL DIRECTLY.';
+            submitBtn.disabled = false;
             
-        }, 1200);
+            setTimeout(() => {
+                feedback.classList.add('hidden');
+            }, 6000);
+        });
     }, 1000);
 }
