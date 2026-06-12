@@ -1,8 +1,6 @@
-# Ignore local portfolio source code files
-index.html
-index.css
-main.js
-assets/
-
 # Ignore OS files
 .DS_Store
+
+# Ignore environment variables / secrets if any
+.env
+*.local
