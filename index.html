@@ -443,19 +443,120 @@
                             <h3>RepoMind <em>Agent</em></h3>
                             <div class="project__sub">mission_04 // Agentic AI</div>
 
-                            <!-- RepoMind Network Graph Visual -->
+                            <!-- RepoMind Repo Tree Visual -->
                             <div class="project__visual">
                                 <div class="pv pv-repomind" style="padding:0; overflow:hidden;">
-                                    <div class="repomind-graph-wrap">
-                                        <div class="repomind-graph-hud">
-                                            <span><span class="pv__head-dot"></span>dependency-graph</span>
-                                            <span class="repomind-graph-status">● live</span>
+                                    <div class="rm-wrap">
+                                        <!-- HUD Header -->
+                                        <div class="rm-hud">
+                                            <div class="rm-hud-left">
+                                                <span class="pv__head-dot"></span>
+                                                <span>Jyotiraditya21-bug / RepoMind</span>
+                                            </div>
+                                            <span class="rm-status" id="rm-status">● scanning</span>
                                         </div>
-                                        <canvas id="repomind-canvas" class="repomind-canvas"></canvas>
-                                        <div class="repomind-graph-footer">
-                                            <span>nodes: <strong id="rm-node-count">7</strong></span>
-                                            <span>edges: <strong id="rm-edge-count">0</strong></span>
-                                            <span>agent-mesh: <strong style="color:#4ade80">active</strong></span>
+
+                                        <!-- File Tree -->
+                                        <div class="rm-tree" id="rm-tree">
+                                            <!-- Root -->
+                                            <div class="rm-row rm-root">
+                                                <span class="rm-glyph">⬡</span>
+                                                <span class="rm-name rm-repo">RepoMind</span>
+                                                <span class="rm-badge rm-badge--repo">public</span>
+                                            </div>
+                                            <!-- backend/ dir -->
+                                            <div class="rm-row rm-dir" data-depth="1">
+                                                <span class="rm-line">├─</span>
+                                                <span class="rm-glyph">📁</span>
+                                                <span class="rm-name">backend/</span>
+                                            </div>
+                                            <!-- agents/ subdir -->
+                                            <div class="rm-row rm-dir" data-depth="2">
+                                                <span class="rm-line">│ ├─</span>
+                                                <span class="rm-glyph">📁</span>
+                                                <span class="rm-name">agents/</span>
+                                            </div>
+                                            <!-- agent files -->
+                                            <div class="rm-row rm-file" data-depth="3" data-badge="AST ✓" data-badge-color="ok">
+                                                <span class="rm-line">│ │ ├─</span>
+                                                <span class="rm-glyph rm-py">🐍</span>
+                                                <span class="rm-name">summarizer.py</span>
+                                                <span class="rm-ann" style="display:none">3 classes</span>
+                                            </div>
+                                            <div class="rm-row rm-file" data-depth="3" data-badge="AST ✓" data-badge-color="ok">
+                                                <span class="rm-line">│ │ ├─</span>
+                                                <span class="rm-glyph rm-py">🐍</span>
+                                                <span class="rm-name">architect.py</span>
+                                                <span class="rm-ann" style="display:none">dep-graph</span>
+                                            </div>
+                                            <div class="rm-row rm-file" data-depth="3" data-badge="CRITIC" data-badge-color="warn">
+                                                <span class="rm-line">│ │ ├─</span>
+                                                <span class="rm-glyph rm-py">🐍</span>
+                                                <span class="rm-name">critic.py</span>
+                                                <span class="rm-ann" style="display:none">loop ×2</span>
+                                            </div>
+                                            <div class="rm-row rm-file" data-depth="3" data-badge="RAG ✓" data-badge-color="blue">
+                                                <span class="rm-line">│ │ └─</span>
+                                                <span class="rm-glyph rm-py">🐍</span>
+                                                <span class="rm-name">rag_indexer.py</span>
+                                                <span class="rm-ann" style="display:none">vector db</span>
+                                            </div>
+                                            <!-- backend root files -->
+                                            <div class="rm-row rm-file" data-depth="2" data-badge="API ✓" data-badge-color="ok">
+                                                <span class="rm-line">│ ├─</span>
+                                                <span class="rm-glyph rm-py">🐍</span>
+                                                <span class="rm-name">main.py</span>
+                                                <span class="rm-ann" style="display:none">FastAPI app</span>
+                                            </div>
+                                            <div class="rm-row rm-file" data-depth="2" data-badge="AST ✓" data-badge-color="ok">
+                                                <span class="rm-line">│ └─</span>
+                                                <span class="rm-glyph rm-py">🐍</span>
+                                                <span class="rm-name">routes.py</span>
+                                                <span class="rm-ann" style="display:none">8 routes</span>
+                                            </div>
+                                            <!-- frontend/ dir -->
+                                            <div class="rm-row rm-dir" data-depth="1">
+                                                <span class="rm-line">├─</span>
+                                                <span class="rm-glyph">📁</span>
+                                                <span class="rm-name">frontend/</span>
+                                            </div>
+                                            <div class="rm-row rm-file" data-depth="2" data-badge="HTML" data-badge-color="blue">
+                                                <span class="rm-line">│ ├─</span>
+                                                <span class="rm-glyph">🌐</span>
+                                                <span class="rm-name">index.html</span>
+                                                <span class="rm-ann" style="display:none">UI layer</span>
+                                            </div>
+                                            <div class="rm-row rm-file" data-depth="2" data-badge="JS" data-badge-color="key">
+                                                <span class="rm-line">│ └─</span>
+                                                <span class="rm-glyph">⚙</span>
+                                                <span class="rm-name">app.js</span>
+                                                <span class="rm-ann" style="display:none">graph render</span>
+                                            </div>
+                                            <!-- root files -->
+                                            <div class="rm-row rm-file" data-depth="1" data-badge="deps" data-badge-color="mute">
+                                                <span class="rm-line">├─</span>
+                                                <span class="rm-glyph">📦</span>
+                                                <span class="rm-name">requirements.txt</span>
+                                                <span class="rm-ann" style="display:none">11 pkgs</span>
+                                            </div>
+                                            <div class="rm-row rm-file" data-depth="1" data-badge="README" data-badge-color="mute">
+                                                <span class="rm-line">└─</span>
+                                                <span class="rm-glyph">📄</span>
+                                                <span class="rm-name">README.md</span>
+                                                <span class="rm-ann" style="display:none">docs</span>
+                                            </div>
+                                        </div>
+
+                                        <!-- Footer progress -->
+                                        <div class="rm-footer">
+                                            <div class="rm-footer-stats">
+                                                <span>files: <strong id="rm-files-scanned">0</strong>/9</span>
+                                                <span>classes: <strong id="rm-classes">0</strong></span>
+                                                <span>status: <strong id="rm-done" style="color:#4ade80">indexing…</strong></span>
+                                            </div>
+                                            <div class="rm-progress-bar">
+                                                <div class="rm-progress-fill" id="rm-progress-fill"></div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
