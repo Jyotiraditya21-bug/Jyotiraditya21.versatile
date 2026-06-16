@@ -1192,6 +1192,7 @@ em {
 .pv-forge { background: linear-gradient(135deg, #18092c, #03000a); }
 .pv-macspot { background: linear-gradient(135deg, #0f0a24, #03000a); }
 .pv-luminate { background: linear-gradient(135deg, #081d28, #03000a); }
+.pv-repomind { background: linear-gradient(135deg, #051a14, #03000a); }
 
 @media (max-width: 880px) {
     .project {
