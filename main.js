@@ -617,3 +617,174 @@ function handleFormSubmit() {
         });
     }, 1000);
 }
+
+// --- RepoMind Network / Dependency Graph Canvas ---
+(function initRepoMindGraph() {
+    const canvas = document.getElementById('repomind-canvas');
+    if (!canvas) return;
+
+    const ctx = canvas.getContext('2d');
+    const edgeCountEl = document.getElementById('rm-edge-count');
+
+    // Node definitions: RepoMind's 5-agent pipeline + repo source + output
+    const NODE_DEFS = [
+        { label: 'GitHub\nRepo',   color: '#a3e635', ring: 'rgba(163,230,53,0.22)' },
+        { label: 'Summarizer',     color: '#4ade80', ring: 'rgba(74,222,128,0.22)' },
+        { label: 'Architect',      color: '#34d399', ring: 'rgba(52,211,153,0.22)' },
+        { label: 'Critic',         color: '#f59e0b', ring: 'rgba(245,158,11,0.22)'  },
+        { label: 'RAG\nIndexer',   color: '#38bdf8', ring: 'rgba(56,189,248,0.22)'  },
+        { label: 'Q&A\nRouter',    color: '#818cf8', ring: 'rgba(129,140,248,0.22)' },
+        { label: 'Checklist\nOut', color: '#4ade80', ring: 'rgba(74,222,128,0.22)'  },
+    ];
+
+    // Directed edges between node index pairs
+    const EDGES = [
+        [0,1],[0,2],[1,2],[2,3],[3,1],[1,4],[4,5],[5,6],[2,6],[3,4]
+    ];
+
+    let W, H, nodes = [], dpr = 1;
+
+    function hexToRgb(hex) {
+        return `${parseInt(hex.slice(1,3),16)},${parseInt(hex.slice(3,5),16)},${parseInt(hex.slice(5,7),16)}`;
+    }
+
+    function resize() {
+        const rect = canvas.getBoundingClientRect();
+        dpr = window.devicePixelRatio || 1;
+        canvas.width  = rect.width  * dpr;
+        canvas.height = rect.height * dpr;
+        ctx.scale(dpr, dpr);
+        W = rect.width;
+        H = rect.height;
+        placeNodes();
+    }
+
+    function placeNodes() {
+        const cx = W / 2, cy = H / 2;
+        const rx = Math.min(W, H) * 0.36;
+        const ry = Math.min(W, H) * 0.28;
+        nodes = NODE_DEFS.map((def, i) => {
+            const angle = (i / NODE_DEFS.length) * Math.PI * 2 - Math.PI / 2;
+            return {
+                ...def,
+                x: cx + rx * Math.cos(angle),
+                y: cy + ry * Math.sin(angle),
+                r: 18,
+                hovered: false,
+                pulsePhase: Math.random() * Math.PI * 2,
+            };
+        });
+    }
+
+    resize();
+    window.addEventListener('resize', resize);
+
+    // Hover detection
+    canvas.addEventListener('mousemove', (e) => {
+        const rect = canvas.getBoundingClientRect();
+        const mx = e.clientX - rect.left;
+        const my = e.clientY - rect.top;
+        nodes.forEach(n => { n.hovered = Math.hypot(mx - n.x, my - n.y) < n.r + 6; });
+    });
+    canvas.addEventListener('mouseleave', () => { nodes.forEach(n => n.hovered = false); });
+
+    // Animated packet per edge
+    const packets = EDGES.map(() => ({
+        progress: Math.random(),
+        speed: 0.0012 + Math.random() * 0.001,
+        dir: Math.random() < 0.5 ? 1 : -1,
+    }));
+
+    let frameCount = 0;
+
+    function draw() {
+        if (!W || !H) { requestAnimationFrame(draw); return; }
+        ctx.clearRect(0, 0, W, H);
+
+        const t = Date.now();
+        frameCount++;
+        let edgeCount = 0;
+
+        // Edges + packets
+        EDGES.forEach(([a, b], i) => {
+            const na = nodes[a], nb = nodes[b];
+            if (!na || !nb) return;
+            const hi = na.hovered || nb.hovered;
+
+            ctx.beginPath();
+            ctx.moveTo(na.x, na.y);
+            ctx.lineTo(nb.x, nb.y);
+            ctx.strokeStyle = hi ? 'rgba(74,222,128,0.55)' : 'rgba(74,222,128,0.12)';
+            ctx.lineWidth = hi ? 1.5 : 0.8;
+            ctx.stroke();
+            edgeCount++;
+
+            // Packet travel
+            const pkt = packets[i];
+            pkt.progress += pkt.speed * pkt.dir;
+            if (pkt.progress > 1) pkt.progress = 0;
+            if (pkt.progress < 0) pkt.progress = 1;
+
+            const px = na.x + (nb.x - na.x) * pkt.progress;
+            const py = na.y + (nb.y - na.y) * pkt.progress;
+
+            ctx.beginPath();
+            ctx.arc(px, py, hi ? 2.5 : 1.8, 0, Math.PI * 2);
+            ctx.fillStyle = hi ? 'rgba(163,230,53,0.95)' : 'rgba(74,222,128,0.75)';
+            ctx.shadowColor = '#4ade80';
+            ctx.shadowBlur = hi ? 8 : 4;
+            ctx.fill();
+            ctx.shadowBlur = 0;
+        });
+
+        if (frameCount % 90 === 0 && edgeCountEl) edgeCountEl.textContent = edgeCount;
+
+        // Nodes
+        nodes.forEach(n => {
+            const pulse = Math.sin(t * 0.002 + n.pulsePhase) * 0.5 + 0.5;
+
+            // Glow ring
+            const ringR = n.r + 6 + pulse * 4;
+            const grad = ctx.createRadialGradient(n.x, n.y, n.r - 2, n.x, n.y, ringR);
+            grad.addColorStop(0, n.ring);
+            grad.addColorStop(1, 'rgba(0,0,0,0)');
+            ctx.beginPath();
+            ctx.arc(n.x, n.y, ringR, 0, Math.PI * 2);
+            ctx.fillStyle = grad;
+            ctx.fill();
+
+            // Circle
+            ctx.beginPath();
+            ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
+            ctx.fillStyle   = n.hovered ? n.color : `rgba(${hexToRgb(n.color)},0.18)`;
+            ctx.strokeStyle = n.hovered ? n.color : `rgba(${hexToRgb(n.color)},0.7)`;
+            ctx.lineWidth   = n.hovered ? 2 : 1.2;
+            ctx.shadowColor = n.color;
+            ctx.shadowBlur  = n.hovered ? 16 : 6 * pulse;
+            ctx.fill();
+            ctx.stroke();
+            ctx.shadowBlur  = 0;
+
+            // Label
+            ctx.fillStyle     = n.hovered ? '#ffffff' : 'rgba(245,241,234,0.82)';
+            ctx.font          = '500 7.5px "JetBrains Mono", monospace';
+            ctx.textAlign     = 'center';
+            ctx.textBaseline  = 'middle';
+            const lines = n.label.split('\n');
+            if (lines.length === 1) {
+                ctx.fillText(lines[0], n.x, n.y);
+            } else {
+                ctx.fillText(lines[0], n.x, n.y - 5);
+                ctx.fillText(lines[1], n.x, n.y + 5);
+            }
+        });
+
+        requestAnimationFrame(draw);
+    }
+
+    // Start rendering once the canvas enters the viewport
+    const observer = new IntersectionObserver(entries => {
+        if (entries[0].isIntersecting) { draw(); observer.disconnect(); }
+    }, { threshold: 0.1 });
+    observer.observe(canvas);
+})();

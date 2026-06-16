@@ -443,21 +443,20 @@
                             <h3>RepoMind <em>Agent</em></h3>
                             <div class="project__sub">mission_04 // Agentic AI</div>
 
-                            <!-- Premium Grad Terminal UI -->
+                            <!-- RepoMind Network Graph Visual -->
                             <div class="project__visual">
-                                <div class="pv pv-repomind">
-                                    <div class="pv__head">
-                                        <span><span class="pv__head-dot"></span>repomind-core</span>
-                                        <span>active</span>
-                                    </div>
-                                    <div class="pv__terminal">
-                                        <p>&gt; cloning repo: github.com/user/project...</p>
-                                        <p class="ok">&gt; AST parser: module signatures indexed [ok]</p>
-                                        <p>&gt; architect-agent: mapping dependency graph...</p>
-                                        <p class="ok">&gt; critic-agent: hallucination audit passed [ok]</p>
-                                        <p>&gt; RAG indexer: caching semantic vector space...</p>
-                                        <div class="pv__rule"></div>
-                                        <p class="key">&gt; onboarding checklist: generated [ready]</p>
+                                <div class="pv pv-repomind" style="padding:0; overflow:hidden;">
+                                    <div class="repomind-graph-wrap">
+                                        <div class="repomind-graph-hud">
+                                            <span><span class="pv__head-dot"></span>dependency-graph</span>
+                                            <span class="repomind-graph-status">● live</span>
+                                        </div>
+                                        <canvas id="repomind-canvas" class="repomind-canvas"></canvas>
+                                        <div class="repomind-graph-footer">
+                                            <span>nodes: <strong id="rm-node-count">7</strong></span>
+                                            <span>edges: <strong id="rm-edge-count">0</strong></span>
+                                            <span>agent-mesh: <strong style="color:#4ade80">active</strong></span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
