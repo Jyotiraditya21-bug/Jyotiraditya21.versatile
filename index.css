@@ -12,55 +12,55 @@
 }
 
 [data-theme="dark"] {
-    --bg: #03000a;         /* Cosmic Vantablack */
-    --bg-2: #090514;       /* Dark Cosmic Violet Surface */
-    --bg-3: #120c24;       /* Elevated Cosmic Violet */
+    --bg: #0e110d;                     /* Matte Olive Black */
+    --bg-2: #151b14;                   /* Deep Olive Surface */
+    --bg-3: #212c1f;                   /* Elevated Matte Olive */
     
-    --text: #f3f0ff;       /* Soft Lavender White */
-    --text-mute: #a78bfa;  /* Light Periwinkle Violet */
+    --text: #f4f7f4;                   /* Soft Warm Off-White */
+    --text-mute: #a2ad9f;              /* Muted Olive Sage Gray */
     
-    --accent: #8b5cf6;     /* Electric Violet */
-    --accent-rgb: 139, 92, 246;
-    --accent-2: #ec4899;   /* Neon Pink */
+    --accent: #84cc16;                 /* Warm Olive Green */
+    --accent-rgb: 132, 204, 22;
+    --accent-2: #d9f99d;               /* Pale Khaki Gold */
     
-    --line: rgba(139, 92, 246, 0.08); /* Faint Glowing Violet Lines */
-    --line-bright: rgba(139, 92, 246, 0.22);
+    --line: rgba(132, 204, 22, 0.08);  /* Glowing Olive lines */
+    --line-bright: rgba(132, 204, 22, 0.22);
     
-    --dock-bg: rgba(9, 5, 20, 0.72);
-    --dock-highlight: rgba(139, 92, 246, 0.12);
+    --dock-bg: rgba(21, 27, 20, 0.72);
+    --dock-highlight: rgba(132, 204, 22, 0.12);
     
-    --portrait-bg: linear-gradient(135deg, #0e051c 0%, #03000a 100%);
+    --portrait-bg: linear-gradient(135deg, #1b2619 0%, #0e110d 100%);
     --card-bg: var(--bg-2);
     --card-bg-hover: var(--bg-3);
     
-    --spotlight-glow: rgba(139, 92, 246, 0.1);
-    --spotlight-glow-secondary: rgba(236, 72, 153, 0.02);
+    --spotlight-glow: rgba(132, 204, 22, 0.1);
+    --spotlight-glow-secondary: rgba(217, 249, 157, 0.02);
 }
 
 [data-theme="light"] {
-    --bg: #fcfbff;         /* Soft Lavender-tinted White */
-    --bg-2: #f2f0f9;       /* Light Periwinkle Surface */
-    --bg-3: #e6e3f5;       /* Elevated Periwinkle Surface */
+    --bg: #fcfdfc;                     /* Warm Organic White */
+    --bg-2: #f2f5f1;                   /* Light Sage Surface */
+    --bg-3: #e4e9e2;                   /* Elevated Light Sage */
     
-    --text: #1a1523;       /* Dark Violet Ink */
-    --text-mute: #6d5d88;  /* Muted Indigo Sage */
+    --text: #151b14;                   /* Deep Olive Black Ink */
+    --text-mute: #5d6b59;              /* Muted Olive Sage */
     
-    --accent: #6d28d9;     /* Deep Royal Violet */
-    --accent-rgb: 109, 40, 217;
-    --accent-2: #be185d;   /* Vibrant Royal Rose */
+    --accent: #65a30d;                 /* Deep Warm Olive */
+    --accent-rgb: 101, 163, 13;
+    --accent-2: #84cc16;               /* Vibrant Matte Olive */
     
-    --line: rgba(109, 40, 217, 0.08);
-    --line-bright: rgba(109, 40, 217, 0.2);
+    --line: rgba(101, 163, 13, 0.08);
+    --line-bright: rgba(101, 163, 13, 0.2);
     
-    --dock-bg: rgba(242, 240, 249, 0.72);
-    --dock-highlight: rgba(109, 40, 217, 0.12);
+    --dock-bg: rgba(242, 245, 241, 0.72);
+    --dock-highlight: rgba(101, 163, 13, 0.12);
     
-    --portrait-bg: linear-gradient(135deg, #eae5f8 0%, #dcd7ed 100%);
+    --portrait-bg: linear-gradient(135deg, #ecfccb 0%, #e4e9e2 100%);
     --card-bg: var(--bg-2);
     --card-bg-hover: var(--bg-3);
     
-    --spotlight-glow: rgba(109, 40, 217, 0.12);
-    --spotlight-glow-secondary: rgba(190, 24, 93, 0.03);
+    --spotlight-glow: rgba(101, 163, 13, 0.12);
+    --spotlight-glow-secondary: rgba(132, 204, 22, 0.03);
 }
 
 /* --- Document Setup --- */
@@ -1747,8 +1747,8 @@ a.contact__channel:hover .contact__channel-icon {
     width: 100%;
     height: 100%;
     background-image: 
-        linear-gradient(rgba(139, 92, 246, 0.04) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(139, 92, 246, 0.04) 1px, transparent 1px);
+        linear-gradient(rgba(var(--accent-rgb), 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(var(--accent-rgb), 0.04) 1px, transparent 1px);
     background-size: 20px 20px;
     pointer-events: none;
     z-index: 1;
@@ -1761,11 +1761,11 @@ a.contact__channel:hover .contact__channel-icon {
     width: 100%;
     background: linear-gradient(
         to bottom,
-        rgba(139, 92, 246, 0) 0%,
-        rgba(139, 92, 246, 0.03) 10%,
-        rgba(139, 92, 246, 0.07) 50%,
-        rgba(139, 92, 246, 0.03) 90%,
-        rgba(139, 92, 246, 0) 100%
+        rgba(var(--accent-rgb), 0) 0%,
+        rgba(var(--accent-rgb), 0.03) 10%,
+        rgba(var(--accent-rgb), 0.07) 50%,
+        rgba(var(--accent-rgb), 0.03) 90%,
+        rgba(var(--accent-rgb), 0) 100%
     );
     height: 80px;
     opacity: 0.75;
@@ -1780,8 +1780,8 @@ a.contact__channel:hover .contact__channel-icon {
 }
 
 .hud-badge {
-    background: rgba(139, 92, 246, 0.06);
-    border: 1px solid rgba(139, 92, 246, 0.18);
+    background: rgba(var(--accent-rgb), 0.06);
+    border: 1px solid rgba(var(--accent-rgb), 0.18);
     padding: 4px 8px;
     border-radius: 4px;
     font-family: 'JetBrains Mono', monospace;
@@ -1791,7 +1791,7 @@ a.contact__channel:hover .contact__channel-icon {
     display: flex;
     align-items: center;
     gap: 6px;
-    box-shadow: 0 0 10px rgba(139, 92, 246, 0.03);
+    box-shadow: 0 0 10px rgba(var(--accent-rgb), 0.03);
 }
 
 .hud-badge__dot {
@@ -2062,4 +2062,25 @@ a.contact__channel:hover .contact__channel-icon {
 
 .cv-btn:hover svg {
     transform: translateY(2px);
+}
+
+/* --- Inline Vector SVGs (Replacing Emojis) --- */
+.rm-svg {
+    width: 13px;
+    height: 13px;
+    stroke: currentColor;
+    fill: none;
+    vertical-align: middle;
+    display: inline-block;
+    position: relative;
+    top: -1px;
+}
+
+.flow-svg {
+    width: 14px;
+    height: 14px;
+    stroke: currentColor;
+    fill: none;
+    vertical-align: middle;
+    display: inline-block;
 }
