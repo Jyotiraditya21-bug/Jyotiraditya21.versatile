@@ -2104,8 +2104,8 @@ a.contact__channel:hover .contact__channel-icon {
     100% { left: 100%; opacity: 0; }
 }
 
-/* --- AI Engineer Jim Download Button --- */
-.ai-engineer-jim-btn {
+/* --- CV Download Button --- */
+.cv-btn {
     display: inline-flex;
     align-items: center;
     gap: 10px;
@@ -2126,7 +2126,7 @@ a.contact__channel:hover .contact__channel-icon {
     align-self: flex-start;
 }
 
-.ai-engineer-jim-btn:hover {
+.cv-btn:hover {
     background-color: var(--accent);
     border-color: var(--accent);
     color: #ffffff;
@@ -2134,7 +2134,7 @@ a.contact__channel:hover .contact__channel-icon {
     box-shadow: 0 8px 24px rgba(var(--accent-rgb), 0.25);
 }
 
-.ai-engineer-jim-btn svg {
+.cv-btn svg {
     width: 14px;
     height: 14px;
     fill: none;
@@ -2143,7 +2143,7 @@ a.contact__channel:hover .contact__channel-icon {
     transition: transform 0.3s var(--ease-fluid);
 }
 
-.ai-engineer-jim-btn:hover svg {
+.cv-btn:hover svg {
     transform: translateY(2px);
 }
 
